@@ -9,9 +9,7 @@ media
 # Backup files # 
 *.bak 
 -- SQLite_Querys.sql
-!**/migrations
-!**/migrations/__init__.py
-
+migrations/
 # If you are using PyCharm # 
 # User-specific stuff
 .idea/**/workspace.xml
@@ -38,7 +36,7 @@ media
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
-
+.vscode
 # File-based project format
 *.iws
 
