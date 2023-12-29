@@ -1,45 +1,99 @@
 @startuml
-
 class CommonInfo {
-  +name: string
-  +price: int
+  + name: String
+  + price: Integer 
 }
-
 class Person {
-  +name: string
-}
+  + name: String
+  + surname: String
+  + email: Email
+  + phone_number: String
 
+}
 class ServiceRequest {
-  +description: string
-  +requested_by: Customer
-  +requested_at: datetime
+  + description: String
+  + requested_by: Customer
+  + status: String
+  + owned_by: ServiceTechnician
+  + requested_at: DateTime
+  + class ServiceRequestCreateView(View)
+  + class ServiceRequestListView(View)
+  + class ServiceRequestDetailView(View)
+  + class ServiceRequestUpdateView(View)
+  + class ServiceRequestDeleteView(View)
 }
-
 class Invoice {
-  +total_amount: decimal
-  +payment_status: boolean
-}
+  + total_amount: Decimal
+  + payment_status: Boolean 
+  + service_requests: ServiceRequest 
+  + parts: Part
+  + tax_rate: decimal
+  + tax_amount: decimal
 
+  + add_invoice()
+  + edit_invoice()
+  + view_invoice()
+  + delete_invoice()
+  + calculate_total_amount_tax()
+  + calculate_total_amount()
+
+}
 class Part {
-  +description: string
-  +quantity_in_stock: int
+  + description: String
+  + quantity_in_stock: Integer 
+  + add_part()
+  + edit_part()
+  + view_part()
+  + delete_part()
 }
-
 class ServiceTechnician {
-  +surname: string
-  +specialization: string
+  + specialization: String
+  + add_service_technician()
+  + edit_service_technician()
+  + view_service_technician()
+  + delete_service_technician()
 }
-
 class Customer {
-  +email: string
-  +phone_number: string
+  + address_line1: String
+  + address_line2: String
+  + postal_code: String
+  + city: String
+  + state: String
+  + country: String
+  + add_customer()
+  + edit_customer()
+  + view_customer()
+  + delete_customer()
 }
 
+class RepairLog{
+  + start_time : DateTime
+  + end_time : DateTime
+  + serviceRequest : ServiceRequest
+  + add_repair_log()
+  + edit_repair_log()
+  + view_repair_log()
+  + delete_repair_log()
+}
+
+class Warehouse{
+  + quantity_to_order : Integer
+  + last_one_order : DateTime
+  + add_warehouse() 
+  + edit_warehouse()
+  + view_warehouse()
+  + delete_warehouse()
+
+}
 CommonInfo --|> ServiceRequest
 CommonInfo --|> Part
+Person --|> ServiceRequest
+ServiceRequest *--> Invoice
+ServiceRequest *-- Customer : requested_by
+ServiceRequest *-- ServiceTechnician : owned_by
+Invoice <--* Part
 Person --|> ServiceTechnician
 Person --|> Customer
-ServiceRequest --|> Invoice
-ServiceRequest --|> Customer
-
+ServiceRequest -- RepairLog
+Part --|> Warehouse
 @enduml
