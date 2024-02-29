@@ -29,3 +29,17 @@ python manage.py runserver 0.0.0.0:8000
 for example: 127.0.0.1:8000
 10. To run unit tests please use this command:
 python manage.py test computerserviceapp
+
+# Alternate you can use docker
+
+1. Build a Docker image:
+In the terminal, while in the project directory, run the docker build command to build a Docker image:
+
+**docker build -t image_name .**
+
+Where image_name is the name you want to give to your image.
+
+2. Start the container with the image:
+Once you've built the image, you can run the container based on it using the command 
+
+**docker run -p 8000:8000 image_name**
